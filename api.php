@@ -16,7 +16,18 @@
     $enabled = "true"; //включен ли апи
         
     require_once "include/dbdriver/dbconnect.php"; //подключение бд
-    
+    function out($var, $var_name = ''){
+        echo '<pre style="outline: 1px dashed 
+                red;padding:5px;margin:10px;color:white;background:black;">';
+        if (!empty($var_name)) {
+            echo '<hr3>' . $var_name . '</h3>';
+        }
+        if (is_string($var)) {
+            $var = htmlspecialchars($var);
+        }
+        print_r($var);
+        echo '</pre>';
+    }
     
     if(isset($_GET["request"])){
         $request = $_GET["request"];
@@ -63,6 +74,11 @@
             require_once("models/shanyraqs.php");
 
             require_once "requests/addShanyraq.php";
+        }
+        else if($request == "getuserachievements"){
+            require_once("models/achievements.php");
+
+            require_once "requests/getUserAchievements.php";
         }
 
         //* test scripts

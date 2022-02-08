@@ -22,3 +22,5 @@ out(getUserApiKey("040403550493", 'z123456!'));
 
 echo "<h2>All shanyraqs list</h2>";
 out(getAllShanyraqs());
+
+out(getUserIdByApiKey('683660237db4bf3cb3b2'));
