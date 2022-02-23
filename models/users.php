@@ -228,7 +228,7 @@ function removeUser($apiKey, $iin){
         else if($userId == "iinError"){
             return "iinError";
         }
-        if(queryDB("DELETE FROM `users` WHERE iin=?", "i", $iin)){
+        if(queryDB("DELETE FROM `users` WHERE iin=?", "s", $iin)){
             return true;
         }
         else{
@@ -240,3 +240,25 @@ function removeUser($apiKey, $iin){
     }
 }
 
+// function to reset user password if apiKey is admin and iin in the table users exists change the password to md5 of "z123456!"
+function resetPassword($apiKey, $iin){
+    if(isAdmin($apiKey)){
+        // userId is userId from users table where iin = $iin. Check if iin in table users exists or not
+        $userId = getUserInfo(false, $iin);
+        if($userId == "iinNotExists"){
+            return "iinNotExists";
+        }
+        else if($userId == "iinError"){
+            return "iinError";
+        }
+        if(queryDB("UPDATE `users` SET `password`=? WHERE `iin`=?", "ss", md5("z123456!"), $iin)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return "userNotAdmin";
+    }
+}
